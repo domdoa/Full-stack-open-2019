@@ -1,0 +1,7 @@
+title 0.4 new note
+
+user-->browser: Fill in text and cicks submit
+browser-->server: Sends user input to server
+note over server: Performs a certain action with the data
+server-->browser: Tells the browser to reload
+note over browser: fetches all the data

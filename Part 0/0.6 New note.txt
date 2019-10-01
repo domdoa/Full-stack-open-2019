@@ -1,0 +1,5 @@
+title 0.6 New note
+
+user-->browser: Enters note and submits
+note over browser: executes js code fetched from server, updates the notes view
+browser-->server: send new note

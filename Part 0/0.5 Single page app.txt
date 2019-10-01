@@ -1,0 +1,8 @@
+title 0.5 Single page app
+
+user-->browser: Navigates to spa
+browser-->server: asks for files
+server-->browser: sends the files
+note over browser: executes files fetched from server
+browser-->server: asks for notes
+server-->browser: sends the notes
