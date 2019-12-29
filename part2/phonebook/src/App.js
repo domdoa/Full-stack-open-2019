@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
@@ -15,8 +14,8 @@ const App = () => {
   const [message, setMessage] = useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/persons").then(response => {
-      setPersons(response.data);
+    personService.getAll().then(data => {
+      setPersons(data);
     });
   }, []);
 
@@ -37,11 +36,18 @@ const App = () => {
       setPersons(persons.concat(data));
       setNewName("");
       setNewNumber("");
+      setMessage(`New person added: '${newPerson.name}'`);
+      setTimeout(() => {
+        setMessage(null);
+      }, 5000);
+    })
+    .catch(error => {
+      setMessage(`ERROR: ${error.response.data.error}`);
+      setTimeout(() => {
+        setMessage(null);
+      }, 5000);
     });
-    setMessage(`New person added: '${newPerson.name}'`);
-    setTimeout(() => {
-      setMessage(null);
-    }, 5000);
+
   };
 
   const updatePerson = (foundPersonId, newPerson) => {
@@ -59,8 +65,10 @@ const App = () => {
           setNewName("");
           setNewNumber("");
         })
-        .catch(error => {
-          setMessage(`ERROR: Information of ${newPerson.name} has already been deleted from the server`);
+        .catch(() => {
+          setMessage(
+            `ERROR: Information of ${newPerson.name} has already been deleted from the server`
+          );
           setTimeout(() => {
             setMessage(null);
           }, 5000);
